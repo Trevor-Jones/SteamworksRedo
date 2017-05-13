@@ -2,7 +2,10 @@ package core;
 
 import auto.Auto;
 import auto.AutoChooser;
-import config.PathConfig;
+import core.loops.Looper;
+import core.subsystems.Climber;
+import core.subsystems.Drive;
+import core.subsystems.Gear;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import vision.VisionCore;
 
@@ -15,17 +18,17 @@ import vision.VisionCore;
  */
 public class Robot extends IterativeRobot {
 	
-	Drive drive = new Drive();
-	Intake intake = new Intake();
-	Gear gear = new Gear();
-	Agitator agitator = new Agitator();
-	Shooter shooter = new Shooter();
-	VisionCore vision = new VisionCore();
-	Climber climber = new Climber();
-	Auto auto = new Auto(drive, gear, shooter, vision);
-	Test test = new Test(drive, intake, climber, gear);
-	Teleop teleop = new Teleop(drive, intake, agitator, gear, shooter, vision, climber);
-	
+	Drive drive = Drive.getInstance();
+	Gear gear = Gear.getInstance();
+	Climber climber = Climber.getInstance();
+	VisionCore vision = VisionCore.getInstance();
+
+	Looper looper = new Looper();
+	Looper teleopLoop = new Looper();
+
+	Auto auto = new Auto();
+	Teleop teleop = new Teleop();
+
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -34,6 +37,12 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		AutoChooser.init();
+
+		// Register loops for subsystems
+		looper.register(drive.getLoop());
+		looper.register(gear.getLoop());
+		looper.register(climber.getLoop());
+		teleopLoop.register(teleop.getLoop());
 	}
 
 	/**
@@ -49,6 +58,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		looper.start();
 		auto.init();
 	}
 
@@ -60,24 +70,25 @@ public class Robot extends IterativeRobot {
 		auto.run();
 	}
 
+	@Override
+	public void teleopInit() {
+		looper.start();
+		teleopLoop.start();
+		drive.openLoopMode();
+	}
+
+	@Override
+	public void disabledInit() {
+		looper.stop();
+		teleopLoop.stop();
+	}
+
 	/**
 	 * This function is called periodically during operator control
 	 */
 	@Override
 	public void teleopPeriodic() {
-		teleop.run();
-	}
-
-	public void testInit() {
-		test.init();
-	}
-	
-	/**
-	 * This function is called periodically during test mode
-	 */
-	@Override
-	public void testPeriodic() {
-		test.run();
+			
 	}
 }
 

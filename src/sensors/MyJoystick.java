@@ -15,12 +15,18 @@ public class MyJoystick extends Joystick {
 	private boolean[] lastButtonState;
 	private boolean[] buttonState;
 
+	private static MyJoystick instance = new MyJoystick(JoyConfig.portNum);
+
+	public static MyJoystick getInstance() {
+		return instance;
+	}
+
 	/**
 	 * Creates joystick at given port
 	 * 
 	 * @param portNumber
 	 */
-	public MyJoystick(int portNumber) {
+	private MyJoystick(int portNumber) {
 		super(portNumber);
 
 		lastButtonState = new boolean[JoyConfig.maxButtons];

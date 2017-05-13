@@ -7,7 +7,12 @@ public class VisionCore {
 	private VisionStruct vs = new VisionStruct();
 	private SocketCore socket = new SocketCore();
 
-	public VisionCore() {	
+	private static VisionCore instance = new VisionCore();
+	public static VisionCore getInstance() {
+		return instance;
+	}
+
+	private VisionCore() {
 		new Thread(socket).start();		
 	}
 	

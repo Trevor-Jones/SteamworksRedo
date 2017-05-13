@@ -10,7 +10,6 @@ public class AutoChooser {
 	public static void init() {
 		autoChooser.addDefault("Do Nothing", AutoConfig.doNothingId);
 		autoChooser.addObject("MiddleGear", AutoConfig.middleGearId);
-		autoChooser.addObject("Shooter", AutoConfig.shooterId);
 		
 		SmartDashboard.putData("Auto Chooser", autoChooser);
 	}
