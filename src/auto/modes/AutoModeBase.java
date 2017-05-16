@@ -6,6 +6,8 @@ import auto.actions.Action;
 /**
  * Created by Trevor on 5/12/2017.
  *
+ * Inspired by 254 The Cheesy Poofs
+ *
  * An abstract class that is the basis of the robot's autonomous routines. This
  * is implemented in auto.modes (which are routines that do actions).
  */

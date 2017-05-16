@@ -1,7 +1,7 @@
 package core.subsystems;
 
 import config.GearConfig;
-import core.loops.Loop;
+import util.loops.Loop;
 import  edu.wpi.first.wpilibj.Servo;
 
 public class Gear {

@@ -5,6 +5,11 @@ import auto.modes.DoNothingMode;
 import auto.modes.MiddleGearMode;
 import config.AutoConfig;
 
+/**
+ * This class spawns a new thread and runs an AutoBaseMode from it
+ *
+ * Inspired by 254 The Cheesy Poofs
+ */
 public class AutoModeExecutor {
 	private AutoModeBase autoMode;
 	private Thread thread = null;

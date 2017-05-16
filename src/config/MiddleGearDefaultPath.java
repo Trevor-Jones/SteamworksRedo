@@ -1,4 +1,4 @@
-package auto;
+package config;
 
 public class MiddleGearDefaultPath {
 	public static final double[][] leftPath = {

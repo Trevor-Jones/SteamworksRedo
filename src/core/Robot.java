@@ -2,7 +2,7 @@ package core;
 
 import auto.AutoModeExecutor;
 import auto.AutoChooser;
-import core.loops.Looper;
+import util.loops.Looper;
 import core.subsystems.Climber;
 import core.subsystems.Drive;
 import core.subsystems.Gear;
@@ -59,23 +59,24 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		try {
+			// Start loop for subsystems
 			looper.start();
-
+			// Create auto executor, pull mode from dashboard, and start executing slected mode
 			autoModeExecutor = new AutoModeExecutor();
 			autoModeExecutor.setModeFromDash();
 			autoModeExecutor.start();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-
-
 	}
 
 	@Override
 	public void teleopInit() {
 		try {
+			// Start subsystem loop and teleop joystick loop
 			looper.start();
 			teleopLoop.start();
+			// Set drive to open loop joystick mode
 			drive.openLoopJoyMode();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

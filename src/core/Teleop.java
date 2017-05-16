@@ -1,9 +1,9 @@
 package core;
-import core.loops.Loop;
+import util.loops.Loop;
 import core.subsystems.Climber;
 import core.subsystems.Drive;
 import core.subsystems.Gear;
-import sensors.MyJoystick;
+import util.MyJoystick;
 import vision.VisionCore;
 import config.JoyConfig;
 

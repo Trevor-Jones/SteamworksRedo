@@ -4,7 +4,7 @@ import com.ctre.CANTalon;
 import com.ctre.CANTalon.TalonControlMode;
 
 import config.ClimberConfig;
-import core.loops.Loop;
+import util.loops.Loop;
 
 public class Climber {
 	

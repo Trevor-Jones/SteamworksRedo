@@ -1,7 +1,7 @@
 package auto.modes;
 
 import auto.AutoModeEndedException;
-import auto.MiddleGearDefaultPath;
+import config.MiddleGearDefaultPath;
 import auto.actions.DropGearAction;
 import auto.actions.FollowPathAction;
 import auto.actions.TimedMoveAction;

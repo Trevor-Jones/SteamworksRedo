@@ -5,9 +5,9 @@ import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
 
 import config.DriveConfig;
-import core.MotionProfileFollower;
-import core.loops.Loop;
-import sensors.MyJoystick;
+import util.MotionProfileFollower;
+import util.loops.Loop;
+import util.MyJoystick;
 
 public class Drive {
 

@@ -1,18 +1,16 @@
-package core.loops;
-
-/**
- * Created by Trevor on 5/12/2017.
- */
+package util.loops;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import config.LoopConfig;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
+ * Created by Trevor on 5/12/2017.
+ *
+ * Inspired by 254 The Cheesy Poofs
+ *
  * This code runs all of the robot's loops. Loop objects are stored in a List
  * object. They are started when the robot powers up and stopped after the
  * match.
@@ -81,9 +79,5 @@ public class Looper {
                 }
             }
         }
-    }
-
-    public void outputToSmartDashboard() {
-        SmartDashboard.putNumber("looper_dt", dt);
     }
 }
