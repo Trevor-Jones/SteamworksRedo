@@ -2,9 +2,7 @@ package vision;
 
 import org.w3c.dom.Element;
 
-import auto.MiddleGearAuto;
 import config.PathConfig;
-import config.VisionConfig;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 

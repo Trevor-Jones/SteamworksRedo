@@ -1,6 +1,6 @@
 package core;
 
-import auto.Auto;
+import auto.AutoModeExecutor;
 import auto.AutoChooser;
 import core.loops.Looper;
 import core.subsystems.Climber;
@@ -17,7 +17,7 @@ import vision.VisionCore;
  * directory.
  */
 public class Robot extends IterativeRobot {
-	
+
 	Drive drive = Drive.getInstance();
 	Gear gear = Gear.getInstance();
 	Climber climber = Climber.getInstance();
@@ -26,7 +26,7 @@ public class Robot extends IterativeRobot {
 	Looper looper = new Looper();
 	Looper teleopLoop = new Looper();
 
-	Auto auto = new Auto();
+	AutoModeExecutor autoModeExecutor;
 	Teleop teleop = new Teleop();
 
 
@@ -50,45 +50,47 @@ public class Robot extends IterativeRobot {
 	 * between different autonomous modes using the dashboard. The sendable
 	 * chooser code works with the Java SmartDashboard. If you prefer the
 	 * LabVIEW Dashboard, remove all of the chooser code and uncomment the
-	 * getString line to get the auto name from the text box below the Gyro
+	 * getString line to get the autoModeExecutor name from the text box below the Gyro
 	 *
-	 * You can add additional auto modes by adding additional comparisons to the
+	 * You can add additional autoModeExecutor modes by adding additional comparisons to the
 	 * switch structure below with additional strings. If using the
 	 * SendableChooser make sure to add them to the chooser code above as well.
 	 */
 	@Override
 	public void autonomousInit() {
-		looper.start();
-		auto.init();
-	}
+		try {
+			looper.start();
 
-	/**
-	 * This function is called periodically during autonomous
-	 */
-	@Override
-	public void autonomousPeriodic() {
-		auto.run();
+			autoModeExecutor = new AutoModeExecutor();
+			autoModeExecutor.setModeFromDash();
+			autoModeExecutor.start();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+
 	}
 
 	@Override
 	public void teleopInit() {
-		looper.start();
-		teleopLoop.start();
-		drive.openLoopMode();
+		try {
+			looper.start();
+			teleopLoop.start();
+			drive.openLoopJoyMode();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	@Override
 	public void disabledInit() {
-		looper.stop();
-		teleopLoop.stop();
-	}
-
-	/**
-	 * This function is called periodically during operator control
-	 */
-	@Override
-	public void teleopPeriodic() {
-			
+		try {
+			looper.stop();
+			teleopLoop.stop();
+			autoModeExecutor.stop();
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 }
 

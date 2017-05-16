@@ -11,7 +11,7 @@ public class AutoChooser {
 		autoChooser.addDefault("Do Nothing", AutoConfig.doNothingId);
 		autoChooser.addObject("MiddleGear", AutoConfig.middleGearId);
 		
-		SmartDashboard.putData("Auto Chooser", autoChooser);
+		SmartDashboard.putData("AutoModeExecutor Chooser", autoChooser);
 	}
 	
 	public static int getAutoId() {

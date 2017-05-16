@@ -7,7 +7,6 @@ import com.ctre.CANTalon.TalonControlMode;
 import config.DriveConfig;
 import core.MotionProfileFollower;
 import core.loops.Loop;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import sensors.MyJoystick;
 
 public class Drive {
@@ -29,12 +28,13 @@ public class Drive {
 	private MotionProfileFollower rightFollower = new MotionProfileFollower(rightDriveMaster);
 
 	public enum DriveControlStates {
-		OPEN_LOOP, MOTION_PROFILE
+		OPEN_LOOP_JOY, MOTION_PROFILE, OPEN_LOOP_SET
 	}
 
 	private DriveControlStates driveControlState;
 
-	double xPos, yPos, x, y;
+	private double xPos, yPos, x, y;
+	private double left, right = 0;
 
 
 	
@@ -42,7 +42,7 @@ public class Drive {
 		// Start in open loop mode
 		leftDriveMaster.changeControlMode(TalonControlMode.PercentVbus);
 		rightDriveMaster.changeControlMode(TalonControlMode.PercentVbus);
-		driveControlState = DriveControlStates.OPEN_LOOP;
+		driveControlState = DriveControlStates.OPEN_LOOP_JOY;
 
 		// Set up encoders
 		leftDriveMaster.setFeedbackDevice(FeedbackDevice.QuadEncoder);
@@ -82,23 +82,27 @@ public class Drive {
 		@Override
 		public void onLoop() {
 			switch (driveControlState) {
-			case OPEN_LOOP:
-				move(joy.getRTheta());
-				break;
+				case OPEN_LOOP_JOY:
+					move(joy.getRTheta());
+					break;
 
-			case MOTION_PROFILE:
-				leftFollower.control();
-				rightFollower.control();
+				case MOTION_PROFILE:
+					leftFollower.control();
+					rightFollower.control();
 
-				leftDriveMaster.set(leftFollower.getSetValue().value);
-				rightDriveMaster.set(rightFollower.getSetValue().value);
-				break;
+					leftDriveMaster.set(leftFollower.getSetValue().value);
+					rightDriveMaster.set(rightFollower.getSetValue().value);
+					break;
+
+				case OPEN_LOOP_SET:
+					ramp(-left, right);
+					break;
 			}
 		}
 
 		@Override
 		public void onStop() {
-			openLoopMode();
+			openLoopJoyMode();
 			move(0,0);
 		}
 	};
@@ -126,6 +130,10 @@ public class Drive {
 			ramp(-left, right);
 		}
 	}
+
+	public int getSetValue() {
+		return leftFollower.getSetValue().value;
+	}
 	
 	public void motionProfileMode() {
 		driveControlState = DriveControlStates.MOTION_PROFILE;
@@ -140,12 +148,25 @@ public class Drive {
 		rightDriveMaster.set(rightFollower.getSetValue().value);
 	}
 	
-	public void openLoopMode() {
-		driveControlState = DriveControlStates.OPEN_LOOP;
+	public void openLoopJoyMode() {
+		driveControlState = DriveControlStates.OPEN_LOOP_JOY;
+		resetToOpenLoop();
+	}
 
+	public void openLoopSetMode(double left, double right) {
+		this.left = left;
+		this.right = right;
+
+		if(driveControlState != DriveControlStates.OPEN_LOOP_SET) {
+			resetToOpenLoop();
+			driveControlState = DriveControlStates.OPEN_LOOP_SET;
+		}
+	}
+
+	private void resetToOpenLoop() {
 		leftDriveMaster.changeControlMode(TalonControlMode.PercentVbus);
 		rightDriveMaster.changeControlMode(TalonControlMode.PercentVbus);
-		
+
 		leftFollower.reset();
 		rightFollower.reset();
 	}

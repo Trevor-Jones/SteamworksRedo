@@ -20,11 +20,11 @@ public abstract class AutoModeBase {
         try {
             routine();
         } catch (AutoModeEndedException e) {
-            System.out.println("Auto mode done, ended early");
+            System.out.println("AutoModeExecutor mode done, ended early");
             return;
         }
         done();
-        System.out.println("Auto mode done");
+        System.out.println("AutoModeExecutor mode done");
     }
 
     public void done() {

@@ -1,6 +1,6 @@
 package auto;
 
-public class MiddleGearAuto {
+public class MiddleGearDefaultPath {
 	public static final double[][] leftPath = {
 			{0.000705,4.2301731933521864,20},
 			{0.003525,8.460346386704373,20},
