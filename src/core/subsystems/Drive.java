@@ -50,8 +50,8 @@ public class Drive {
 		leftDriveMaster.configEncoderCodesPerRev(DriveConfig.codesPerRev);
 		rightDriveMaster.configEncoderCodesPerRev(DriveConfig.codesPerRev);
 		leftDriveMaster.reverseSensor(false);
-		leftDriveMaster.reverseOutput(true);
-		rightDriveMaster.reverseOutput(false);
+		leftDriveMaster.reverseOutput(false);
+		rightDriveMaster.reverseOutput(true);
 		rightDriveMaster.reverseSensor(true);
 
 		// Set up PID values

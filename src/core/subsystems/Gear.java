@@ -57,11 +57,11 @@ public class Gear {
 		gearControlState = state;
 	}
 
-	private void open(){
+	private void close(){
 		servoLeft.setAngle(GearConfig.gearServoAngleLeftOpen);
 		servoRight.setAngle(GearConfig.gearServoAngleRightOpen);
 	}
-	private void close(){
+	private void open(){
 		servoLeft.setAngle(GearConfig.gearServoAngleLeftClosed);
 		servoRight.setAngle(GearConfig.gearServoAngleRightClosed);
 	}

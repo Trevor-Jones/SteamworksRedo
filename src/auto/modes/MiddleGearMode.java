@@ -15,6 +15,6 @@ public class MiddleGearMode extends AutoModeBase {
     protected void routine() throws AutoModeEndedException {
         runAction(new FollowPathAction(MiddleGearDefaultPath.leftPath, MiddleGearDefaultPath.rightPath));
         runAction(new DropGearAction());
-        runAction(new TimedMoveAction(-.3, -.3, 1));
+        runAction(new TimedMoveAction(.3, .3, 1));
     }
 }
